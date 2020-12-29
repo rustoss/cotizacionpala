@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {Avatar, Button, CssBaseline, TextField, FormControlLabel} from '@material-ui/core';
 import {Checkbox, Link, Grid, Box, Typography, makeStyles, Container} from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Axios from 'axios'
 import Error from './Error'
-
-function Copyright() {
-    return (
-      <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="https://material-ui.com/">
-          Pavimentos Laguna SA de CV
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-}
+import Copyright from './Copyright'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Login = ({ guardarBandLogin }) => {
+const Login = ({ guardarNumeroComponente }) => {
 
     const [ datoslogeo, guardarDatosLogeo] = useState({
         email: '',
@@ -71,11 +58,11 @@ const Login = ({ guardarBandLogin }) => {
     // }
     const consultarAPI = async () => {
         try{
-            const consulta = await Axios.post('http://localhost:5000/api/auth', {
+            /*const consulta = await Axios.post('http://localhost:5000/api/auth', {
                 email: email,
                 password: password
-            })
-            guardarBandLogin(true)            
+            })*/                        
+            guardarNumeroComponente(1)           
         }
         catch{
             guardarError(true)            
@@ -92,6 +79,10 @@ const Login = ({ guardarBandLogin }) => {
         }
         guardarError(false)
         consultarAPI()
+    }
+
+    const registarse = () => {
+        guardarNumeroComponente(2)
     }
 
     const classes = useStyles();
@@ -138,7 +129,7 @@ const Login = ({ guardarBandLogin }) => {
                 />
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
+                    label="Recordar"
                 />
                 <Button
                     type="submit"
@@ -147,17 +138,17 @@ const Login = ({ guardarBandLogin }) => {
                     color="primary"
                     className={classes.submit}
                 >
-                Sign In
+                Ingresar
                 </Button>
                 <Grid container>
                 <Grid item xs>
                     <Link href="#" variant="body2">
-                        Forgot password?
+                        ¿Olvidaste tu contraseña?
                     </Link>
                 </Grid>
                 <Grid item>
-                    <Link href="#" variant="body2">
-                        {"Don't have an account? Sign Up"}
+                    <Link href="#" variant="body2" onClick={registarse}>
+                        {"Registrate"}
                     </Link>
                 </Grid>
                 </Grid>
